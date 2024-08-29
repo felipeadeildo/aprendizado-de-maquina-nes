@@ -222,3 +222,20 @@ def matrix_inverse(matrix: List[List[float]]) -> List[List[float]]:
                 for j in range(n):
                     B[k][j] -= alpha * B[i][j]
     return B
+
+
+def matrix_vector_multiply(
+    matrix: List[List[float]], vector: List[float]
+) -> List[float]:
+    """Multiplica uma matriz por um vetor.
+
+    (Aplica a matriz num vetor)
+
+    Args:
+        matrix (List[List[float]]): Matriz.
+        vector (List[float]): Vetor.
+
+    Returns:
+        List[float]: Resultado da multiplicação.
+    """
+    return [sum(m * v for m, v in zip(row, vector)) for row in matrix]
