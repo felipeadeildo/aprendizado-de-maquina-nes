@@ -187,3 +187,38 @@ def matrix_multiply(A: List[List[float]], B: List[List[float]]) -> List[List[flo
     return [
         [sum(a * b for a, b in zip(A_row, B_col)) for B_col in zip(*B)] for A_row in A
     ]
+
+
+def matrix_inverse(matrix: List[List[float]]) -> List[List[float]]:
+    """Calcula a matriz inversa de uma matriz.
+
+    Utiliza o método de escalonamento.
+
+    Args:
+        matrix (List[List[float]]): Matriz a ser invertida.
+
+    Returns:
+        List[List[float]]: Matriz inversa.
+    """
+    n = len(matrix)
+    assert all(len(row) == n for row in matrix), "Matriz não é quadrada"
+
+    A = [[element for element in row] for row in matrix]
+    B = [[1.0 if i == j else 0.0 for i in range(n)] for j in range(n)]
+
+    for i in range(n):
+        pivot = A[i][i]
+        if pivot == 0:
+            raise ValueError("Matriz não tem inversa")
+        for j in range(i, n):
+            A[i][j] /= pivot
+        for j in range(n):
+            B[i][j] /= pivot
+        for k in range(n):
+            if i != k:
+                alpha = A[k][i]
+                for j in range(i, n):
+                    A[k][j] -= alpha * A[i][j]
+                for j in range(n):
+                    B[k][j] -= alpha * B[i][j]
+    return B
