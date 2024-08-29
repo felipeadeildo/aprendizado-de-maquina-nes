@@ -24,7 +24,7 @@ def generate_data(n_points: int = 10):
             1
             if (x[1] - point1[1]) * (point2[0] - point1[0])
             > (point2[1] - point1[1]) * (x[0] - point1[0])
-            else 0
+            else -1
         )
 
     y: List[Union[float, int]] = [target_function(x) for x in X]
@@ -36,14 +36,15 @@ def run():
     total_iterations = 0
     n_points = 10
 
-    for _ in range(n_runs):
+    for i in range(n_runs):
+        print(f"Executando iteração {i + 1} de {n_runs}...", end="\r", flush=True)
         X, y = generate_data(n_points)
-        pla = Perceptron()
+        pla = Perceptron(n_iters=1000)
         pla.fit(X, y)
         total_iterations += pla.iterations
 
     average_iterations = total_iterations / n_runs
 
     print(
-        f"Média de iterações para convergência com N = {n_points}: {average_iterations}"
+        f"\nMédia de iterações para convergência com N = {n_points}: {average_iterations}"
     )
