@@ -1,20 +1,20 @@
 import itertools
 from typing import Callable, Dict, List, Literal, Tuple
 
-# Contexto:
-#
-# Pontuação = (Número de funções alvo que concordam com a hipótese em todos os 3 pontos) × 3 +
-#             (Número de funções alvo que concordam com a hipótese em exatamente 2 pontos) × 2 +
-#             (Número de funções alvo que concordam com a hipótese em exatamente 1 ponto) × 1 +
-#             (Número de funções alvo que concordam com a hipótese em 0 pontos) × 0.
-#
-# 6. Qual hipótese g concorda mais com as possíveis funções alvo em termos da pontuação acima?
-#
-# a) g(x) = 1
-# b) g(x) = 0
-# c) g é a função XOR, ou seja, g(x) = 1 se o número de 1s em x for ímpar, caso contrário g(x) = 0
-# d) g é o oposto da função XOR, ou seja, g(x) = 1 se o número de 1s em x for par, caso contrário g(x) = 0
-# e) Elas são todas equivalentes (mesma pontuação para g em [a] até [d]).
+ENUNCIADO = """
+Pontuação = (Número de funções alvo que concordam com a hipótese em todos os 3 pontos) × 3 +
+            (Número de funções alvo que concordam com a hipótese em exatamente 2 pontos) × 2 +
+            (Número de funções alvo que concordam com a hipótese em exatamente 1 ponto) × 1 +
+            (Número de funções alvo que concordam com a hipótese em 0 pontos) × 0.
+
+6. Qual hipótese g concorda mais com as possíveis funções alvo em termos da pontuação acima?
+
+a) g(x) = 1
+b) g(x) = 0
+c) g é a função XOR, ou seja, g(x) = 1 se o número de 1s em x for ímpar, caso contrário g(x) = 0
+d) g é o oposto da função XOR, ou seja, g(x) = 1 se o número de 1s em x for par, caso contrário g(x) = 0
+e) Elas são todas equivalentes (mesma pontuação para g em [a] até [d]).
+""".strip()
 
 T = Literal[1, 0]
 
@@ -79,9 +79,9 @@ hipoteses: Dict[str, Callable[[Tuple[T, T, T]], T]] = {
 
 
 def run() -> None:
-    scores: Dict[str, int] = {}
-
     print("Calculando as pontuações para cada hipótese...\n")
+
+    scores: Dict[str, int] = {}
 
     for nome, hipotese in hipoteses.items():
         score = calcula_scores(hipotese)
