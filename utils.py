@@ -144,3 +144,19 @@ def sign(x: float) -> int:
         int: 1 se x >= 0, -1 se x < 0.
     """
     return 1 if x >= 0 else -1
+
+
+def generate_data_with_noise(
+    n_points: int = 10, interval: tuple[float, float] = (-1, 1), noise: float = 0.1
+) -> tuple:
+    """Gera os dados de treinamento com base na função alvo e adiciona ruído.
+
+    Args:
+        n_points (int): Número de pontos de dados a serem gerados.
+
+    Returns:
+        Tuple[List[List[float]], List[int]]: Matriz de características (X) e vetor de rótulos (y).
+    """
+    X, y = generate_data(n_points, interval)
+    y = [y_i + random.uniform(-noise, noise) for y_i in y]
+    return X, y
