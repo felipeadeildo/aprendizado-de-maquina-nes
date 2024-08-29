@@ -9,12 +9,21 @@ def parse_arguments():
     parser = ArgumentParser(
         description="Execute dinamicamente um exercício específico."
     )
+
+    parser.add_argument(
+        "-l",
+        "--lista",
+        required=True,
+        type=int,
+        help="Número da lista, por exemplo, '1' para 'lista1'.",
+    )
+
     parser.add_argument(
         "-e",
-        "--exercise",
+        "--exercicio",
         required=True,
-        type=str,
-        help="Informe no formato 'listaX.exercicioY', por exemplo 'lista1.exercicio1'.",
+        type=int,
+        help="Número do exercício, por exemplo, '7' para 'exercicio7'.",
     )
 
     parser.add_argument(
@@ -35,8 +44,9 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def import_exercise_module(exercise_path: str):
+def import_exercise_module(lista_num: int, exercicio_num: int):
     """Importa o módulo do exercício especificado."""
+    exercise_path = f"lista{lista_num}.exercicio{exercicio_num}"
     try:
         module = importlib.import_module(exercise_path)
     except ImportError as e:
@@ -45,13 +55,13 @@ def import_exercise_module(exercise_path: str):
     return module
 
 
-def print_execution_start_message(lista: str, exercicio: str, repeat: int):
+def print_execution_start_message(lista_num: int, exercicio_num: int, repeat: int):
     """Imprime a mensagem inicial de execução."""
     msg = (
         f"{Color.text('Executando o', Color.ORANGE)} "
-        f"{Color.text(f'exercício {exercicio.removeprefix('exercicio')}', Color.GREEN)} "
+        f"{Color.text(f'exercício {exercicio_num}', Color.GREEN)} "
         f"{Color.text('da', Color.ORANGE)} "
-        f"{Color.text(f'lista {lista.removeprefix('lista')}', Color.BLUE)}..."
+        f"{Color.text(f'lista {lista_num}', Color.BLUE)}..."
     )
     print(msg)
     print_divider()
@@ -67,7 +77,14 @@ def print_execution_start_message(lista: str, exercicio: str, repeat: int):
 
 
 def execute_exercise(module, repeat: int):
-    """Executa o exercício a partir do módulo importado."""
+    """Executa o exercício a partir do módulo importado, exibindo o enunciado."""
+    enunciado = getattr(module, "ENUNCIADO", None)
+
+    if enunciado:
+        print(Color.text("Enunciado do Exercício:", Color.CYAN))
+        print(Color.text(enunciado, Color.WHITE))
+        print_divider()
+
     for i in range(repeat):
         if repeat > 1:
             execution_msg = (
@@ -88,11 +105,13 @@ def main():
 
     if args.clear:
         clear_screen()
-    lista, exercicio = args.exercise.split(".")
 
-    print_execution_start_message(lista, exercicio, args.repeat)
+    lista_num = args.lista
+    exercicio_num = args.exercicio
 
-    module = import_exercise_module(args.exercise)
+    print_execution_start_message(lista_num, exercicio_num, args.repeat)
+
+    module = import_exercise_module(lista_num, exercicio_num)
     execute_exercise(module, args.repeat)
 
 
