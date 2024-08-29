@@ -1,20 +1,21 @@
 import itertools
 from typing import Callable, Dict, List, Literal, Tuple
 
-INSTRUCTIONS = """
-Pontuação = (Número de funções alvo que concordam com a hipótese em todos os 3 pontos) × 3 +
-            (Número de funções alvo que concordam com a hipótese em exatamente 2 pontos) × 2 +
-            (Número de funções alvo que concordam com a hipótese em exatamente 1 ponto) × 1 +
-            (Número de funções alvo que concordam com a hipótese em 0 pontos) × 0.
+from utils import Color
 
-6. Qual hipótese g concorda mais com as possíveis funções alvo em termos da pontuação acima?
-
-a) g(x) = 1
-b) g(x) = 0
-c) g é a função XOR, ou seja, g(x) = 1 se o número de 1s em x for ímpar, caso contrário g(x) = 0
-d) g é o oposto da função XOR, ou seja, g(x) = 1 se o número de 1s em x for par, caso contrário g(x) = 0
-e) Elas são todas equivalentes (mesma pontuação para g em [a] até [d]).
-""".strip()
+INSTRUCTIONS = (
+    f"{Color.text('Pontuação =', Color.BRIGHT_BLUE)}\n"
+    f"\t{Color.text('(Número de funções alvo que concordam com a hipótese em todos os 3 pontos)', Color.BRIGHT_PURPLE)} {Color.text('× 3', Color.BRIGHT_GREEN)} +\n"
+    f"\t{Color.text('(Número de funções alvo que concordam com a hipótese em exatamente 2 pontos)', Color.PURPLE)} {Color.text('× 2', Color.GREEN)} +\n"
+    f"\t{Color.text('(Número de funções alvo que concordam com a hipótese em exatamente 1 ponto)', Color.TEAL)} {Color.text('× 1', Color.YELLOW)} +\n"
+    f"\t{Color.text('(Número de funções alvo que concordam com a hipótese em 0 pontos)', Color.CYAN)} {Color.text('× 0', Color.RED)}.\n\n"
+    f"{Color.text('6. Qual hipótese g concorda mais com as possíveis funções alvo em termos da pontuação acima?', Color.BRIGHT_CYAN)}\n\n"
+    f"{Color.text('a)', Color.ORANGE)} {Color.text('g(x) = 1', Color.BRIGHT_RED)}\n"
+    f"{Color.text('b)', Color.ORANGE)} {Color.text('g(x) = 0', Color.RED)}\n"
+    f"{Color.text('c)', Color.ORANGE)} {Color.text('g é a função XOR, ou seja, g(x) = 1 se o número de 1s em x for ímpar,', Color.BRIGHT_PURPLE)} {Color.text('caso contrário g(x) = 0', Color.PURPLE)}\n"
+    f"{Color.text('d)', Color.ORANGE)} {Color.text('g é o oposto da função XOR, ou seja, g(x) = 1 se o número de 1s em x for par,', Color.BRIGHT_TEAL)} {Color.text('caso contrário g(x) = 0', Color.TEAL)}\n"
+    f"{Color.text('e)', Color.ORANGE)} {Color.text('Elas são todas equivalentes (mesma pontuação para g em [a] até [d]).', Color.BRIGHT_ORANGE)}"
+)
 
 T = Literal[1, 0]
 
@@ -110,24 +111,34 @@ hypotheses: Dict[str, Callable[[Tuple[T, T, T]], T]] = {
 
 def run() -> None:
     """Calcula as pontuações para cada hipótese e exibe o resultado."""
-    print("Calculando as pontuações para cada hipótese...\n")
+    print(
+        Color.text(
+            "Calculando as pontuações para cada hipótese...\n", Color.BRIGHT_CYAN
+        )
+    )
 
     scores: Dict[str, int] = {}
 
     for name, hypothesis in hypotheses.items():
         score = calculate_scores(hypothesis)
         scores[name] = score
-        print(f"Pontuação de {name}(x): {score}")
+        print(Color.text(f"Pontuação de {name}(x): {score}", Color.BRIGHT_PURPLE))
 
     scores_set = set(scores.values())
     if len(scores_set) == 1:
         print(
-            "\nTodas as hipóteses têm a mesma pontuação. Resposta: e) Elas são todas equivalentes."
+            Color.text(
+                "\nTodas as hipóteses têm a mesma pontuação. Resposta: e) Elas são todas equivalentes.",
+                Color.GREEN,
+            )
         )
     else:
         best_hypothesis = max(scores, key=scores.__getitem__)
         print(
-            f"\nA melhor hipótese é {best_hypothesis} com pontuação {scores[best_hypothesis]}."
+            Color.text(
+                f"\nA melhor hipótese é {best_hypothesis} com pontuação {scores[best_hypothesis]}.",
+                Color.GREEN,
+            )
         )
 
 
