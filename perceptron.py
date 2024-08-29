@@ -20,7 +20,7 @@ class Perceptron:
 
     weights: List[Union[float, int]]
 
-    def __init__(self, learning_rate: float = 0.01, n_iters: int = 1000):
+    def __init__(self, learning_rate: float = 0.01, n_iters: int = 1000) -> None:
         """Inicializa o Perceptron com uma taxa de aprendizado e número de iterações.
 
         Args:
@@ -40,7 +40,7 @@ class Perceptron:
         """
         return self._iterations
 
-    def fit(self, X: List[List[Union[float, int]]], y: List[Union[float, int]]):
+    def fit(self, X: List[List[Union[float, int]]], y: List[Union[float, int]]) -> None:
         """Treina o Perceptron usando os dados de treinamento.
 
         Este método ajusta os pesos do Perceptron para minimizar os erros de classificação.
@@ -93,7 +93,6 @@ class Perceptron:
             X (List[List[Union[float, int]]]): A matriz de características de entrada, com o bias adicionado.
             y (List[Union[float, int]]): O vetor de rótulos de saída.
 
-
         Returns:
             bool: True se houve atualização de pesos (ou seja, há pontos mal classificados),
                   False se todos os pontos foram corretamente classificados.
@@ -114,12 +113,6 @@ class Perceptron:
     def predict(self, X: List[Union[float, int]]) -> float:
         """Prediz o rótulo de uma amostra de entrada com base nos pesos atuais.
 
-        Args:
-            X (List[Union[float, int]]): Uma lista que representa as características de uma amostra.
-
-        Returns:
-            float: O rótulo predito para a amostra (1 ou -1).
-
         A predição é feita pela soma ponderada das características:
             z = ∑(x_ij * w_j)
         onde:
@@ -127,6 +120,12 @@ class Perceptron:
             w_j = peso para a característica j
 
         A função de ativação é então aplicada a z para determinar o rótulo predito.
+
+        Args:
+            X (List[Union[float, int]]): Uma lista que representa as características de uma amostra.
+
+        Returns:
+            float: O rótulo predito para a amostra (1 ou -1).
         """
         z = sum(X[i] * self.weights[i] for i in range(len(X)))
         return self._activation(z)

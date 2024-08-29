@@ -33,7 +33,7 @@ class Color:
         return f"{color}{text}{cls.RESET}"
 
 
-def print_divider(char: str = "-", length: int = 80, **kwargs):
+def print_divider(char: str = "-", length: int = 80, **kwargs) -> None:
     """Imprime um separador de linha preenchido com o caractere especificado.
 
     Args:
@@ -44,19 +44,34 @@ def print_divider(char: str = "-", length: int = 80, **kwargs):
     print(Color.text(char * terminal_width, Color.CYAN), **kwargs)
 
 
-def clear_screen():
+def clear_screen() -> None:
     """Limpa a tela do terminal."""
     os.system(CMD_CLEAR)
 
 
-def generate_data(n_points: int = 10, interval: tuple[float, float] = (-1, 1)):
-    """Gera os dados de treinamento e a função alvo."""
+def generate_data(n_points: int = 10, interval: tuple[float, float] = (-1, 1)) -> tuple:
+    """Gera os dados de treinamento e a função alvo.
+
+    Args:
+        n_points (int): Número de pontos de dados a serem gerados.
+        interval (tuple[float, float]): Intervalo para geração dos valores dos pontos.
+
+    Returns:
+        tuple: Uma tupla contendo a matriz de características (X) e o vetor de rótulos (y).
+    """
     X = [[random.uniform(*interval) for _ in range(2)] for _ in range(n_points)]
     point1 = [random.uniform(*interval) for _ in range(2)]
     point2 = [random.uniform(*interval) for _ in range(2)]
 
     def target_function(x):
-        """Calcula a função alvo baseada na linha."""
+        """Calcula a função alvo baseada na linha.
+
+        Args:
+            x (List[float]): Uma lista representando um ponto.
+
+        Returns:
+            int: O rótulo predito para o ponto (1 ou -1).
+        """
         return (
             1
             if (x[1] - point1[1]) * (point2[0] - point1[0])

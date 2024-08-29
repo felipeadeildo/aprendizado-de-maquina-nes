@@ -3,7 +3,7 @@ from string import ascii_lowercase
 from perceptron import Perceptron
 from utils import generate_data
 
-ENUNCIADO = """
+INSTRUCTIONS = """
 Para obter uma estimativa confiável dessas duas quantidades, você deve repetir o experimento
 1000 vezes (cada execução conforme especificado acima) e calcular a média sobre essas execuções.
 
@@ -13,7 +13,7 @@ com N = 10 pontos de treinamento? Escolha o valor mais próximo dos seus resulta
 """.strip()
 
 
-def run():
+def run() -> None:
     n_runs = 1000
     total_iterations = 0
     n_points = 10
