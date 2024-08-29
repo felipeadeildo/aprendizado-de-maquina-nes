@@ -172,3 +172,18 @@ def transpose(matrix: List[List[float]]) -> List[List[float]]:
         List[List[float]]: Matriz transposta.
     """
     return list(map(list, zip(*matrix)))
+
+
+def matrix_multiply(A: List[List[float]], B: List[List[float]]) -> List[List[float]]:
+    """Multiplica duas matrizes.
+
+    Args:
+        A (List[List[float]]): Matriz A.
+        B (List[List[float]]): Matriz B.
+
+    Returns:
+        List[List[float]]: Resultado da multiplicação.
+    """
+    return [
+        [sum(a * b for a, b in zip(A_row, B_col)) for B_col in zip(*B)] for A_row in A
+    ]
