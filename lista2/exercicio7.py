@@ -1,8 +1,7 @@
-import random
 from string import ascii_lowercase
-from typing import List, Union
 
 from perceptron import Perceptron
+from utils import generate_data
 
 ENUNCIADO = """
 Para obter uma estimativa confiável dessas duas quantidades, você deve repetir o experimento
@@ -12,25 +11,6 @@ Para obter uma estimativa confiável dessas duas quantidades, você deve repetir
 com N = 10 pontos de treinamento? Escolha o valor mais próximo dos seus resultados.
 ('mais próximo' significa: |sua resposta - opção dada| é a mais próxima de 0).
 """.strip()
-
-
-def generate_data(n_points: int = 10):
-    """Gera os dados de treinamento e a função alvo."""
-    X = [[random.uniform(-1, 1) for _ in range(2)] for _ in range(n_points)]
-    point1 = [random.uniform(-1, 1) for _ in range(2)]
-    point2 = [random.uniform(-1, 1) for _ in range(2)]
-
-    def target_function(x):
-        """Calcula a função alvo baseada na linha."""
-        return (
-            1
-            if (x[1] - point1[1]) * (point2[0] - point1[0])
-            > (point2[1] - point1[1]) * (x[0] - point1[0])
-            else -1
-        )
-
-    y: List[Union[float, int]] = [target_function(x) for x in X]
-    return X, y
 
 
 def run():
