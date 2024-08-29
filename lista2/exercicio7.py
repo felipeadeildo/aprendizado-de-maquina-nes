@@ -7,6 +7,7 @@
 # (again, 'closest' means: |your answer - given option| is closest to 0).
 
 import random
+from string import ascii_lowercase
 from typing import List, Union
 
 from perceptron import Perceptron
@@ -48,3 +49,7 @@ def run():
     print(
         f"\nMédia de iterações para convergência com N = {n_points}: {average_iterations}"
     )
+
+    alternativas = zip(ascii_lowercase, [1, 15, 300, 5000, 10000])
+    closest = min(alternativas, key=lambda x: abs(x[1] - average_iterations))
+    print(f"Alternativa mais próxima: {closest[0]}) com {closest[1]} iterações")
