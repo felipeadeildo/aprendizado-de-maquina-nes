@@ -53,3 +53,7 @@ def run():
     alternatives = zip(ascii_lowercase, [1, 15, 300, 5000, 10000])
     closest = min(alternatives, key=lambda x: abs(x[1] - average_iterations))
     print(f"Alternativa mais próxima: {closest[0]}) com {closest[1]} iterações")
+
+
+if __name__ == "__main__":
+    run()
