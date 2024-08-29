@@ -132,3 +132,15 @@ def generate_target_function(
     point1 = [random.uniform(*interval) for _ in range(2)]
     point2 = [random.uniform(*interval) for _ in range(2)]
     return point1, point2
+
+
+def sign(x: float) -> int:
+    """Retorna o sinal de x.
+
+    Args:
+        x (float): Valor a ser avaliado.
+
+    Returns:
+        int: 1 se x >= 0, -1 se x < 0.
+    """
+    return 1 if x >= 0 else -1
