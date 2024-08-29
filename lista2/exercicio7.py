@@ -1,16 +1,17 @@
-# In order to get a reliable estimate for these two quantities, you should repeat the
-# experiment for 1000 runs (each run as specified above) and take the average over
-# these runs.
-
-# 7. Take N = 10. How many iterations does it take on average for the PLA to converge
-# for N = 10 training points? Pick the value closes to your results.
-# (again, 'closest' means: |your answer - given option| is closest to 0).
-
 import random
 from string import ascii_lowercase
 from typing import List, Union
 
 from perceptron import Perceptron
+
+ENUNCIADO = """
+Para obter uma estimativa confiável dessas duas quantidades, você deve repetir o experimento
+1000 vezes (cada execução conforme especificado acima) e calcular a média sobre essas execuções.
+
+7. Considere N = 10. Quantas iterações, em média, são necessárias para que o PLA converja
+com N = 10 pontos de treinamento? Escolha o valor mais próximo dos seus resultados.
+('mais próximo' significa: |sua resposta - opção dada| é a mais próxima de 0).
+""".strip()
 
 
 def generate_data(n_points: int = 10):
