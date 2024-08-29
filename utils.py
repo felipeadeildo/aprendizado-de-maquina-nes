@@ -16,7 +16,21 @@ class Color:
     MAGENTA = "\033[35m"
     CYAN = "\033[36m"
     WHITE = "\033[37m"
-    ORANGE = "\033[38;5;214m"  # Simulação de laranja com ANSI
+    ORANGE = "\033[38;5;214m"
+    BLACK = "\033[30m"
+    BRIGHT_RED = "\033[91m"
+    BRIGHT_GREEN = "\033[92m"
+    BRIGHT_YELLOW = "\033[93m"
+    BRIGHT_BLUE = "\033[94m"
+    BRIGHT_MAGENTA = "\033[95m"
+    BRIGHT_CYAN = "\033[96m"
+    BRIGHT_WHITE = "\033[97m"
+    GRAY = "\033[90m"
+    BRIGHT_ORANGE = "\033[38;5;202m"
+    PURPLE = "\033[38;5;129m"
+    BRIGHT_PURPLE = "\033[38;5;165m"
+    TEAL = "\033[38;5;43m"
+    BRIGHT_TEAL = "\033[38;5;80m"
     RESET = "\033[0m"
 
     @classmethod
