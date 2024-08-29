@@ -1,7 +1,7 @@
 import os
 import random
 import shutil
-from typing import List, Union
+from typing import List, Tuple, Union
 
 from constants import CMD_CLEAR
 
@@ -77,7 +77,7 @@ def generate_data(n_points: int = 10, interval: tuple[float, float] = (-1, 1)) -
     point1 = [random.uniform(*interval) for _ in range(2)]
     point2 = [random.uniform(*interval) for _ in range(2)]
 
-    def target_function(x):
+    def target_function(x: List[float]) -> int:
         """Calcula a função alvo baseada na linha.
 
         Args:
@@ -95,3 +95,40 @@ def generate_data(n_points: int = 10, interval: tuple[float, float] = (-1, 1)) -
 
     y: List[Union[float, int]] = [target_function(x) for x in X]
     return X, y
+
+
+def evaluate_target_function(
+    point1: List[float], point2: List[float], x: List[float]
+) -> int:
+    """Avalia a função alvo f(x) em um ponto x.
+
+    Args:
+        point1 (List[float]): Primeiro ponto que define a função alvo.
+        point2 (List[float]): Segundo ponto que define a função alvo.
+        x (List[float]): Ponto a ser classificado.
+
+    Returns:
+        int: +1 ou -1 dependendo de que lado da linha o ponto x se encontra.
+    """
+    return (
+        1
+        if (x[1] - point1[1]) * (point2[0] - point1[0])
+        > (point2[1] - point1[1]) * (x[0] - point1[0])
+        else -1
+    )
+
+
+def generate_target_function(
+    interval: Tuple[float, float] = (-1, 1),
+) -> Tuple[List[float], List[float]]:
+    """Gera uma função alvo f(x) aleatória.
+
+    Args:
+        interval (Tuple[float, float]): Intervalo para geração dos valores dos pontos.
+
+    Returns:
+        Tuple[List[float], List[float]]: Dois pontos que definem a função alvo.
+    """
+    point1 = [random.uniform(*interval) for _ in range(2)]
+    point2 = [random.uniform(*interval) for _ in range(2)]
+    return point1, point2
