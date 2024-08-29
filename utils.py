@@ -160,3 +160,15 @@ def generate_data_with_noise(
     X, y = generate_data(n_points, interval)
     y = [y_i + random.uniform(-noise, noise) for y_i in y]
     return X, y
+
+
+def transpose(matrix: List[List[float]]) -> List[List[float]]:
+    """Transpõe uma matriz.
+
+    Args:
+        matrix (List[List[float]]): Matriz a ser transposta.
+
+    Returns:
+        List[List[float]]: Matriz transposta.
+    """
+    return list(map(list, zip(*matrix)))
