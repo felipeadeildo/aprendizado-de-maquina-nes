@@ -26,7 +26,7 @@ def parse_arguments() -> Namespace:
         "-e",
         "--exercise",
         required=True,
-        type=int,
+        type=str,
         help="Número do exercício, por exemplo, '7' para 'exercicio7'.",
     )
 
