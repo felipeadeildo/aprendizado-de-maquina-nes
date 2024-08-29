@@ -10,12 +10,12 @@ class Perceptron:
     iterativamente com base nos erros de classificação.
 
     A função de ativação utilizada é a função degrau, onde a saída é 1 se a soma ponderada
-    das entradas for maior que 0, caso contrário, a saída é 0.
+    das entradas for maior que 0, caso contrário, a saída é -1.
 
     Args:
         learning_rate (float): A taxa de aprendizado que controla o quanto os pesos são
             ajustados a cada iteração. Valor padrão é 0.01.
-        n_iters (int): O número de iterações do algoritmo. Valor padrão é 1000.
+        n_iters (int): O número máximo de iterações do algoritmo. Valor padrão é 1000.
     """
 
     weights: List[Union[float, int]]
@@ -25,7 +25,7 @@ class Perceptron:
 
         Args:
             learning_rate (float): A taxa de aprendizado.
-            n_iters (int): O número de iterações.
+            n_iters (int): O número máximo de iterações.
         """
         self.lr = learning_rate
         self.n_iters = n_iters
@@ -97,7 +97,6 @@ class Perceptron:
         Returns:
             bool: True se houve atualização de pesos (ou seja, há pontos mal classificados),
                   False se todos os pontos foram corretamente classificados.
-
         """
         all_classified_correctly = True
 
@@ -119,7 +118,7 @@ class Perceptron:
             X (List[Union[float, int]]): Uma lista que representa as características de uma amostra.
 
         Returns:
-            float: O rótulo predito para a amostra (1 ou 0).
+            float: O rótulo predito para a amostra (1 ou -1).
 
         A predição é feita pela soma ponderada das características:
             z = ∑(x_ij * w_j)
@@ -139,6 +138,6 @@ class Perceptron:
             z (float): A soma ponderada das entradas.
 
         Returns:
-            float: O rótulo de saída (1 se z > 0, caso contrário 0).
+            float: O rótulo de saída (1 se z > 0, caso contrário -1).
         """
-        return 1 if z > 0 else 0
+        return 1 if z > 0 else -1
