@@ -152,7 +152,7 @@ def generate_data_with_noise(
     interval: Tuple[float, float] = (-1, 1),
     noise: float = 0.1,
     noise_percentage: float = 0.1,
-) -> Tuple[List[List[float]], List[int]]:
+) -> Tuple[List[List[float]], List[Union[float, int]]]:
     """Gera os dados de treinamento com base na função alvo e adiciona ruído.
 
     Args:
@@ -162,7 +162,7 @@ def generate_data_with_noise(
         noise_percentage (float): Porcentagem dos dados que serão ruidosos.
 
     Returns:
-        Tuple[List[List[float]], List[int]]: Matriz de características (X) e vetor de rótulos (y).
+        Tuple[List[List[float]], List[Union[float, int]]]: Matriz de características (X) e vetor de rótulos (y).
     """
     X, y = generate_data(n_points, interval)
 
