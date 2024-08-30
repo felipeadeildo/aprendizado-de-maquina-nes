@@ -255,6 +255,18 @@ def matrix_vector_multiply(
     return [sum(m * v for m, v in zip(row, vector)) for row in matrix]
 
 
+def without_transformation(X: List[List[float]]) -> List[List[float]]:
+    """Retorna a matriz de entrada sem transformação.
+
+    Args:
+        X (List[List[float]]): Matriz de entrada.
+
+    Returns:
+        List[List[float]]: Matriz de entrada sem transformação.
+    """
+    return [[1, x1, x2] for x1, x2 in X]
+
+
 def transform_features(X: List[List[float]]) -> List[List[float]]:
     """Transforma as características para o vetor não linear.
 
