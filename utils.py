@@ -147,18 +147,32 @@ def sign(x: float) -> int:
 
 
 def generate_data_with_noise(
-    n_points: int = 10, interval: tuple[float, float] = (-1, 1), noise: float = 0.1
-) -> tuple:
+    *,
+    n_points: int = 10,
+    interval: Tuple[float, float] = (-1, 1),
+    noise: float = 0.1,
+    noise_percentage: float = 0.1,
+) -> Tuple[List[List[float]], List[int]]:
     """Gera os dados de treinamento com base na função alvo e adiciona ruído.
 
     Args:
         n_points (int): Número de pontos de dados a serem gerados.
+        interval (Tuple[float, float]): Intervalo para geração dos valores dos pontos.
+        noise (float): Intensidade do ruido.
+        noise_percentage (float): Porcentagem dos dados que serão ruidosos.
 
     Returns:
         Tuple[List[List[float]], List[int]]: Matriz de características (X) e vetor de rótulos (y).
     """
     X, y = generate_data(n_points, interval)
-    y = [y_i + random.uniform(-noise, noise) for y_i in y]
+
+    n_noise = int(noise_percentage * n_points)
+    noise_indices = random.sample(range(n_points), n_noise)
+    for i in noise_indices:
+        # TODO: verificar a forma correta de adicionar ruido
+        # X[i][0] += random.uniform(-noise, noise)
+        # X[i][1] += random.uniform(-noise, noise)
+        y[i] *= -1
     return X, y
 
 
