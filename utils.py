@@ -253,3 +253,15 @@ def matrix_vector_multiply(
         List[float]: Resultado da multiplicação.
     """
     return [sum(m * v for m, v in zip(row, vector)) for row in matrix]
+
+
+def transform_features(X: List[List[float]]) -> List[List[float]]:
+    """Transforma as características para o vetor não linear.
+
+    Args:
+        X (List[List[float]]): Matriz de características original.
+
+    Returns:
+        List[List[float]]: Matriz de características transformada.
+    """
+    return [[1, x1, x2, x1 * x2, x1**2, x2**2] for x1, x2 in X]
